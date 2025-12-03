@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Daily Joke</title>
+  <style>
+    body{font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+         display:flex;align-items:center;justify-content:center;height:100vh;margin:0;
+         background:linear-gradient(180deg,#fff,#f0f6ff);color:#0b2545}
+    .card{max-width:720px;padding:28px;border-radius:12px;box-shadow:0 10px 30px rgba(11,37,69,0.08);
+          background:white;text-align:center}
+    h1{margin:0 0 12px;font-size:20px}
+    p#joke{font-size:20px;margin:18px 0 12px;line-height:1.4}
+    small{color:#6b788a}
+    button{margin-top:12px;padding:10px 14px;border-radius:8px;border:0;background:#0b61ff;color:white;cursor:pointer}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🎲 Today's Joke</h1>
+    <p id="joke">Loading...</p>
+    <small id="meta"></small><br/>
+    <button id="another">Show another (same day)</button>
+  </div>
+
+  <script>
+  // ------- YOUR JOKES: edit/add as many as you like -------
+  const jokes = [
+    "Why don’t scientists trust atoms? Because they make up everything!",
+    "I told my computer I needed a break — it said: 'No problem, I'll go to sleep.'",
+    "Why did the scarecrow win an award? Because he was outstanding in his field.",
+    "Parallel lines have so much in common. It’s a shame they’ll never meet.",
+    "I would tell you a construction joke — but I’m still working on it.",
+    "Why can't bicycles stand up on their own? They're two-tired.",
+    "Why did the math book look sad? Because it had too many problems.",
+    "I told a joke about a roof once — it went over everyone's head."
+  ];
+  // ---------------------------------------------------------
+
+  // Deterministic daily index (same worldwide) using UTC date:
+  const msPerDay = 24*60*60*1000;
+  const now = new Date();
+  const utcMidnight = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+  const dayIndex = Math.floor(utcMidnight / msPerDay);
+  let currentIndex = dayIndex % jokes.length;
+
+  const jokeEl = document.getElementById('joke');
+  const metaEl = document.getElementById('meta');
+  const btn = document.getElementById('another');
+
+  function showJoke(i){
+    jokeEl.textContent = jokes[i];
+    metaEl.textContent = `Joke ${i+1} · ${new Date(utcMidnight).toISOString().slice(0,10)} (UTC)`;
+  }
+
+  // show the day's joke on load
+  showJoke(currentIndex);
+
+  // allow user to see a different joke for same day
+  btn.addEventListener('click', ()=>{
+    currentIndex = (currentIndex + 1) % jokes.length;
+    showJoke(currentIndex);
+  });
+
+  // --- OPTIONAL: fetch a random joke from a free API if you want ---
+  // fetch('https://icanhazdadjoke.com/', { headers: { Accept: 'application/json' } })
+  //   .then(r => r.json())
+  //   .then(data => {
+  //     // comment-out the line below if you prefer the fixed local jokes
+  //     // jokeEl.textContent = data.joke;
+  //   })
+  //   .catch(()=>{/* ignore errors; local list used by default */});
+  </script>
+</body>
+</html>
