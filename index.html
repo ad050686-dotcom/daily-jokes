@@ -57,10 +57,9 @@
   // show the day's joke on load
   showJoke(currentIndex);
 
-  // ❌ remove ability to change joke on same day
-  btn.addEventListener('click', ()=>{
-    currentIndex = (currentIndex + 1) % jokes.length;
-    showJoke(currentIndex);
+// disable button so user cannot change joke today
+btn.disabled = true;
+btn.textContent = "Come back tomorrow!";
   });
 
   // --- OPTIONAL: fetch a random joke from a free API if you want ---
@@ -74,4 +73,5 @@
   </script>
 </body>
 </html>
+
 
