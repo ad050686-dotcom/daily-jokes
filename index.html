@@ -57,10 +57,7 @@
   // show the day's joke on load
   showJoke(currentIndex);
 
-// no same-day regeneration
-btn.disabled = true;
-btn.textContent = "Come back tomorrow!";
-  });
+ // allow user to see a different joke for same day btn.addEventListener('click', ()=>{ currentIndex = (currentIndex + 1) % jokes.length; showJoke(currentIndex); });
 
   // --- OPTIONAL: fetch a random joke from a free API if you want ---
   // fetch('https://icanhazdadjoke.com/', { headers: { Accept: 'application/json' } })
@@ -73,6 +70,7 @@ btn.textContent = "Come back tomorrow!";
   </script>
 </body>
 </html>
+
 
 
 
