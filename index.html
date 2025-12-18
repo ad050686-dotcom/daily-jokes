@@ -57,7 +57,7 @@
   // show the day's joke on load
   showJoke(currentIndex);
 
-  // allow user to see a different joke for same day
+  // ❌ remove ability to change joke on same day
   btn.addEventListener('click', ()=>{
     currentIndex = (currentIndex + 1) % jokes.length;
     showJoke(currentIndex);
@@ -74,3 +74,4 @@
   </script>
 </body>
 </html>
+
